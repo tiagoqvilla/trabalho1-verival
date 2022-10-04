@@ -21,6 +21,7 @@ public class CentroDistribuicao {
     private int tAlcool2;
 
     public CentroDistribuicao(int tAditivo, int tGasolina, int tAlcool1, int tAlcool2) {
+        if(tAditivo < 0 || tGasolina < 0 || (tAlcool1 != tAlcool2) || tAlcool1 < 0) throw new IllegalArgumentException();
         tGasolina = tGasolina < 0 ? 0 : tGasolina;
         tAditivo = tAditivo < 0 ? 0 : tAditivo;
         tAlcool1 = tAlcool1 < 0 ? 0 : tAlcool1;
@@ -28,13 +29,8 @@ public class CentroDistribuicao {
 
         this.tGasolina = tGasolina > MAX_GASOLINA ? MAX_GASOLINA : tGasolina;
         this.tAditivo = tAditivo > MAX_ADITIVO ? MAX_ADITIVO : tAditivo;
-        if(tAlcool1 > tAlcool2) {
-            this.tAlcool1 = tAlcool2 > MAX_ALCOOL / 2 ? MAX_ALCOOL / 2 : tAlcool2;
-            this.tAlcool2 = tAlcool2 > MAX_ALCOOL / 2 ? MAX_ALCOOL / 2 : tAlcool2;  
-        } else {
-            this.tAlcool1 = tAlcool1 > MAX_ALCOOL / 2 ? MAX_ALCOOL / 2 : tAlcool1;
-            this.tAlcool2 = tAlcool1 > MAX_ALCOOL / 2 ? MAX_ALCOOL / 2 : tAlcool1;
-        }
+        this.tAlcool1 = tAlcool1 > MAX_ALCOOL / 2 ? MAX_ALCOOL / 2 : tAlcool1;
+        this.tAlcool2 = tAlcool2 > MAX_ALCOOL / 2 ? MAX_ALCOOL / 2 : tAlcool2;
 
         defineSituacao();
     }
