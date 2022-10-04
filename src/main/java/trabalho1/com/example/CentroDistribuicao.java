@@ -100,47 +100,29 @@ public class CentroDistribuicao {
 
     public int[] encomendaCombustivel(int qtdade, TIPOPOSTO tipoPosto) {
         
-        if(qtdade <= 0) {
+        if(qtdade <= 0) 
             return new int[] { -7, 0, 0, 0, 0 };
-        }
 
-        if(getSituacao() == SITUACAO.EMERGENCIA && tipoPosto == TIPOPOSTO.COMUM) {
+        if(getSituacao() == SITUACAO.EMERGENCIA && tipoPosto == TIPOPOSTO.COMUM) 
             return new int[] { -14, 0, 0, 0, 0 };
-        }
 
-
-        int qtAditivo = (int) (qtdade * 0.05);
-        int qtGasolina = (int) (qtdade * 0.7);
-        int qtAlcool = (int) (qtdade * 0.25);
+        int qtAditivo = getQtdade((int) (qtdade * 0.05), tipoPosto);
+        int qtGasolina = getQtdade((int) (qtdade * 0.7), tipoPosto);
+        int qtAlcool = getQtdade((int) (qtdade * 0.25), tipoPosto);
         
-        if(!canRemoveAditivo(qtAditivo)) {
+        if(!canRemoveAditivo(qtAditivo)) 
             return new int[] { -21, 0, 0, 0, 0};
-        }
 
-        if(!canRemoveGasolina(qtGasolina)) {
+        if(!canRemoveGasolina(qtGasolina)) 
             return new int[] { -21, 0, 0, 0, 0};
-        }
 
-        if(!canRemoveAlcool(qtAlcool)) {
+        if(!canRemoveAlcool(qtAlcool)) 
             return new int[] { -21, 0, 0, 0, 0};
-        }
 
-        if(getSituacao() == SITUACAO.SOBRAVISO && tipoPosto == TIPOPOSTO.COMUM) {
-            this.tAditivo -= qtAditivo / 2;
-            this.tGasolina -= qtGasolina / 2;
-            this.tAlcool1 -= qtAlcool / 4;
-            this.tAlcool2 -= qtAlcool / 4;
-        } else if(getSituacao() == SITUACAO.EMERGENCIA && tipoPosto == TIPOPOSTO.ESTRATEGICO) {
-            this.tAditivo -= qtAditivo / 2;
-            this.tGasolina -= qtGasolina / 2;
-            this.tAlcool1 -= qtAlcool / 4;
-            this.tAlcool2 -= qtAlcool / 4;
-        } else {
-            this.tAditivo -= qtAditivo;
-            this.tGasolina -= qtGasolina;
-            this.tAlcool1 -= qtAlcool / 2;
-            this.tAlcool2 -= qtAlcool / 2;
-        }
+        this.tAditivo -= qtAditivo;
+        this.tGasolina -= qtGasolina;
+        this.tAlcool1 -= qtAlcool / 2;
+        this.tAlcool2 -= qtAlcool / 2;
 
         defineSituacao();
         return new int[] { 0, tAditivo, tGasolina, tAlcool1, tAlcool2};
@@ -162,6 +144,16 @@ public class CentroDistribuicao {
         }
     }
 
+    private int getQtdade(int qtdade, TIPOPOSTO tp) {
+        if(this.situacao == SITUACAO.SOBRAVISO && tp == TIPOPOSTO.COMUM) {
+            return qtdade / 2;
+        } else if(this.situacao == SITUACAO.EMERGENCIA && tp == TIPOPOSTO.ESTRATEGICO) {
+            return qtdade / 2;
+        } else {
+            return qtdade;
+        }
+    }
+
     private boolean canRemoveAditivo(int qtdade) {
         return this.tAditivo - qtdade >= 0 ? true : false;
     }
@@ -174,11 +166,9 @@ public class CentroDistribuicao {
         return (this.tAlcool1 + this.tAlcool2) - qtdade >= 0 ? true : false;
     }
 
-
-    public static void main(String[] args) {
-        CentroDistribuicao c = new CentroDistribuicao(249, 4999, 1200, 1200);
-        System.out.println(c.getSituacao());
+    @Override
+    public String toString() {
+        return "Combustiveis: {Aditivo:" + this.tAditivo + ", Gasolina: " + this.tGasolina 
+        + ", Alcool1: " + this.tAlcool1 + ", Alcool2: " + this.tAlcool2 + "}";
     }
-
-
 }
