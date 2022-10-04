@@ -1,5 +1,7 @@
 package trabalho1.com.example;
 
+import java.time.format.SignStyle;
+
 public class CentroDistribuicao {
 
     public enum SITUACAO {
@@ -29,13 +31,29 @@ public class CentroDistribuicao {
         this.tAditivo = tAditivo > MAX_ADITIVO ? MAX_ADITIVO : tAditivo;
         this.tAlcool1 = tAlcool1 > MAX_ALCOOL / 2 ? MAX_ALCOOL / 2 : tAlcool1;
         this.tAlcool2 = tAlcool2 > MAX_ALCOOL / 2 ? MAX_ALCOOL / 2 : tAlcool2;
+
     }
 
     public void defineSituacao() {
+        
+
     }
 
     public SITUACAO getSituacao() {
-        return SITUACAO.NORMAL;
+        int tGasolinaAtual = (MAX_GASOLINA - this.tGasolina) / MAX_GASOLINA;
+        int tGasolinaPorcentagem = 100 - (tGasolinaAtual * 100);
+        int tAlcoolAtual = (MAX_ALCOOL - this.tAlcool1) / MAX_ALCOOL;
+        int tAlcoolPorcentagem = 100 - (tAlcoolAtual * 100);
+        int tAditivoAtual = (MAX_ADITIVO - this.tAditivo) / MAX_ADITIVO;
+        int tAditivoPorcentagem = 100 - (tAditivoAtual * 100); 
+        
+        if(tGasolinaPorcentagem >= 50 && tAlcoolPorcentagem >= 50 && tAditivoPorcentagem >= 50) {
+            return SITUACAO.NORMAL;
+        } else if(tGasolinaPorcentagem >= 25 && tAlcoolPorcentagem >= 25 && tAditivoPorcentagem >= 25) {
+            return SITUACAO.SOBRAVISO;
+        } else {
+            return SITUACAO.EMERGENCIA;
+        }
     }
 
     public int gettGasolina() {
