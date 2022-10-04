@@ -73,7 +73,7 @@ public class CentroDistribuicao {
         }
         int totalAditivo = tAditivo + qtdade;
         this.tAditivo = totalAditivo > MAX_ADITIVO ? MAX_ADITIVO : totalAditivo;
-
+        defineSituacao();
         return tAditivo;
     }
 
@@ -83,7 +83,7 @@ public class CentroDistribuicao {
         }
         int totalGasolina = tGasolina + qtdade;
         this.tGasolina = totalGasolina > MAX_GASOLINA ? MAX_GASOLINA : totalGasolina;
-
+        defineSituacao();
         return this.tGasolina;
     }
 
@@ -94,6 +94,7 @@ public class CentroDistribuicao {
         int totalAlcool = tAlcool1 + tAlcool2 + qtdade;
         this.tAlcool1 = totalAlcool / 2 > MAX_ALCOOL / 2 ? MAX_ALCOOL / 2: totalAlcool / 2;
         this.tAlcool2 = totalAlcool / 2 > MAX_ALCOOL / 2 ? MAX_ALCOOL / 2: totalAlcool / 2;
+        defineSituacao();
         return tAlcool1;
     }
 
@@ -141,7 +142,7 @@ public class CentroDistribuicao {
             this.tAlcool2 -= qtAlcool / 2;
         }
 
-
+        defineSituacao();
         return new int[] { 0, tAditivo, tGasolina, tAlcool1, tAlcool2};
     }
 
