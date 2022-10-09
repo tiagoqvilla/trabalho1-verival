@@ -49,7 +49,7 @@ public class EncomendaCombustivelTest {
 
     @ParameterizedTest
     @CsvSource({
-        "250,4000,2499,ESTRATEGICO"
+        "250,4000,1249,ESTRATEGICO"
     })
     void faltaAlcool(int aditivo, int gasolina, int alcool, TIPOPOSTO tipoPosto) {
         c.recebeAditivo(aditivo);
@@ -72,7 +72,7 @@ public class EncomendaCombustivelTest {
         c.recebeAlcool(alcool);
 
         final int resultado[] = c.encomendaCombustivel(-1, tipoPosto);
-        final int resultadoEsperado = -14;
+        final int resultadoEsperado = -7;
         final int resultadoObtido = resultado[0];
         Assertions.assertEquals(resultadoEsperado, resultadoObtido);
     }
@@ -87,7 +87,7 @@ public class EncomendaCombustivelTest {
         c.recebeAlcool(alcool);
 
         final int resultado[] = c.encomendaCombustivel(5000, tipoPosto);
-        final boolean qtdAditivo = resultado[1] == 150;
+        final boolean qtdAditivo = resultado[1] == 100;
         final boolean qtdGasolina = resultado[2] == 500;
         final boolean qtdAlcool = (resultado[3] + resultado[4]) == 1250;
         Assertions.assertTrue((qtdAditivo && qtdGasolina && qtdAlcool));
@@ -104,9 +104,9 @@ public class EncomendaCombustivelTest {
         c.recebeAlcool(alcool);
 
         final int resultado[] = c.encomendaCombustivel(5000, tipoPosto);
-        final boolean qtdAditivo = tipoPosto == TIPOPOSTO.COMUM ? resultado[1] == 75 : resultado[1] == 150; 
-        final boolean qtdGasolina = tipoPosto == TIPOPOSTO.COMUM ? resultado[2] == 250 : resultado[2] == 500;
-        final boolean qtdAlcool = tipoPosto == TIPOPOSTO.COMUM ? (resultado[3] + resultado[4]) == 1875 : (resultado[3] + resultado[4]) == 1250;
+        final boolean qtdAditivo = tipoPosto == TIPOPOSTO.COMUM ? resultado[1] == 225 : resultado[1] == 100; 
+        final boolean qtdGasolina = tipoPosto == TIPOPOSTO.COMUM ? resultado[2] == 2250 : resultado[2] == 500;
+        final boolean qtdAlcool = tipoPosto == TIPOPOSTO.COMUM ? (resultado[3] + resultado[4]) == 1876 : (resultado[3] + resultado[4]) == 1250;
         Assertions.assertTrue((qtdAditivo && qtdGasolina && qtdAlcool));
     }
 
@@ -120,9 +120,9 @@ public class EncomendaCombustivelTest {
         c.recebeAlcool(alcool);
 
         final int resultado[] = c.encomendaCombustivel(3000, tipoPosto);
-        final boolean qtdAditivo = resultado[1] == 200; 
-        final boolean qtdGasolina =resultado[2] == 300;
-        final boolean qtdAlcool = (resultado[3] + resultado[4]) == 1750;
+        final boolean qtdAditivo = resultado[1] == 275; 
+        final boolean qtdGasolina =resultado[2] == 1350;
+        final boolean qtdAlcool = (resultado[3] + resultado[4]) == 2126;
         Assertions.assertTrue((qtdAditivo && qtdGasolina && qtdAlcool));
     }
 
@@ -136,7 +136,7 @@ public class EncomendaCombustivelTest {
         c.recebeAlcool(alcool);
 
         final int resultado[] = c.encomendaCombustivel(3000, tipoPosto);
-        final int resultadoEsperado = -7;
+        final int resultadoEsperado = -14;
         final int resultadoObtido = resultado[0];
         Assertions.assertEquals(resultadoEsperado, resultadoObtido);
     }
