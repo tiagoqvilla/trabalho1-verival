@@ -1,18 +1,17 @@
 package trabalho1.com.example;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 /**
  * Unit test for simple App.
  */
 public class CentroDistribuicaoTest {
-    /**
-     * Rigorous Test :-)
-     */
-    @Test
-    public void shouldAnswerWithTrue() {
-        assertTrue(true);
+    CentroDistribuicao c = null;
+
+    @BeforeEach
+    void setup() {
+        c = new CentroDistribuicao(0, 0, 0, 0);
+        
     }
 }
